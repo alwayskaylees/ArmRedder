@@ -31,6 +31,7 @@ while True:
                 time.sleep(1)
             bot = values[:]
             ard_device.write_array([3, *values])
+            ret, frame = cap.read()
             frame2 = cv2.resize(frame, (320, 240))
             states_fingers = hand.get_fingers_state(frame2)
             if states_fingers:
