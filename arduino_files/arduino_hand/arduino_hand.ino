@@ -2,7 +2,7 @@
 
 #define numFingers 5
 
-byte codeMode;
+byte codeMode;  
 
 byte servoPins[numFingers] = {4, 2, 3, 5, 6};
 byte startValues[numFingers] = {40, 75, 25, 10, 90};

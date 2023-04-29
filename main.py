@@ -2,10 +2,10 @@ import cv2
 from hand_utilities import Hand
 from arduino_connect import ArduinoConnection
 import math
-
+import time
 
 # connect to Arduino
-ard_device = ArduinoConnection("COM4", 9600)
+ard_device = ArduinoConnection("COM3", 9600)
 # connect to camera
 cap = cv2.VideoCapture(0)
 hand = Hand()
@@ -21,6 +21,12 @@ while True:
         for id_finger in hand.fingers_ids:
             values.append(states_fingers[id_finger])
         # send finger states to Arduino
+        if values == [False, False, False, False, False]:  # бумага
+            values = [True, False, False, True, True]  # ножницы
+        elif values == [True, True, True, True, True]:  # камень
+            values = [False, False, False, False, False]  # бумага
+        elif values == [True, False, False, True, True]:  # ножницы
+            values = [True, True, True, True, True]  # камень
         ard_device.write_array([3, *values])
     print(states_fingers)
     cv2.imshow("Frame", frame1)
