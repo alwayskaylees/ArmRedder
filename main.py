@@ -1,9 +1,12 @@
 import cv2
+from PIL import Image
+
 from hand_utilities import Hand
 from arduino_connect import ArduinoConnection
-import math
 import time
+import os
 import random
+from threading import Thread
 
 # connect to Arduino
 ard_device = ArduinoConnection("COM3", 9600)
@@ -12,8 +15,7 @@ cap = cv2.VideoCapture(0)
 hand = Hand()
 while True:
     ret, frame = cap.read()
-
-    frame1 = cv2.resize(frame, (320, 240))
+    frame1 = cv2.resize(frame, (520, 440))
     states_fingers = hand.get_fingers_state(frame1)
     if states_fingers:
         values = list()
@@ -27,12 +29,12 @@ while True:
             values = rock_paper_scissors
             print('У вас есть три секунды, чтобы показать жест!')
             for i in range(3):
-                print(i + 1)
+                print('У вас осталось:', i, 'секунд')
                 time.sleep(1)
             bot = values[:]
             ard_device.write_array([3, *values])
             ret, frame = cap.read()
-            frame2 = cv2.resize(frame, (320, 240))
+            frame2 = cv2.resize(frame, (520, 440))
             states_fingers = hand.get_fingers_state(frame2)
             if states_fingers:
                 values = list()
@@ -66,7 +68,6 @@ while True:
                 else:
                     print('Неверный жест!')
     cv2.imshow("Frame", frame1)
-
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
