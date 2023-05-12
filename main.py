@@ -28,7 +28,7 @@ while True:
             print(rock_paper_scissors)  # бумага/ножницы/камень
             values = rock_paper_scissors
             print('У вас есть три секунды, чтобы показать жест!')
-            for i in range(3):
+            for i in range(1, 4):
                 print('У вас осталось:', i, 'секунд')
                 time.sleep(1)
             bot = values[:]
@@ -42,31 +42,36 @@ while True:
                     values.append(states_fingers[id_finger])
             if values == [False, False, False, False, False]:
                 if bot == [False, False, False, False, False]:
+                    print('БОТ ПОКАЗАЛ БУМАГУ')
                     print('Ничья!')
                 elif bot == [True, True, True, True, True]:
+                    print('БОТ ПОКАЗАЛ КАМЕНЬ')
                     print('Вы выиграли!')
                 elif bot == [True, False, False, True, True]:
+                    print('БОТ ПОКАЗАЛ НОЖНИЦЫ')
                     print('Вы проиграли!')
-                else:
-                    print('Неверный жест!')
             elif values == [True, True, True, True, True]:
                 if bot == [False, False, False, False, False]:
+                    print('БОТ ПОКАЗАЛ БУМАГУ')
                     print('Вы проиграли!')
                 elif bot == [True, True, True, True, True]:
+                    print('БОТ ПОКАЗАЛ КАМЕНЬ')
                     print('Ничья!')
                 elif bot == [True, False, False, True, True]:
+                    print('БОТ ПОКАЗАЛ НОЖНИЦЫ')
                     print('Вы выиграли!')
-                else:
-                    print('Неверный жест!')
             elif values == [True, False, False, True, True]:
                 if bot == [False, False, False, False, False]:
+                    print('БОТ ПОКАЗАЛ БУМАГУ')
                     print('Вы выиграли!')
                 elif bot == [True, True, True, True, True]:
+                    print('БОТ ПОКАЗАЛ КАМЕНЬ')
                     print('Вы проиграли!')
                 elif bot == [True, False, False, True, True]:
+                    print('БОТ ПОКАЗАЛ НОЖНИЦЫ')
                     print('Ничья!')
-                else:
-                    print('Неверный жест!')
+            else:
+                print('Неверный жест!')
     cv2.imshow("Frame", frame1)
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
